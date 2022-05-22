@@ -10,6 +10,7 @@ Member{
 	"phoneNumber": String,
 	"email": String,
 	"PESEL": Int16,
+	"dateOfJoining": Timestamp,
 	"address":{
 		"street": String,
 		"houseNumber": String,
@@ -35,6 +36,6 @@ Group{
 	"ID": UUID(),
 	"name": String,
 	"membersCount": Int16,
-	"dateOfFunding": Int16,
+	"dateOfFunding": Timestamp,
 	"description:" String
 }
