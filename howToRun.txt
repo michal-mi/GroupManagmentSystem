@@ -1,0 +1,7 @@
+Jak uruchomić:
+-> Serwer:
+1) cd client
+2) npm start
+-> Klient: 
+1) cd server
+2) npm start

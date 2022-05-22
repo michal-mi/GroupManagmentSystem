@@ -1,0 +1,40 @@
+Member{
+	"ID": UUID(),
+	"groupID": UUID(),
+	"name": String,
+	"secondName": String,
+	"lastName": String,
+	"age": Int16,
+	"function": String,
+	"rank": String,
+	"phoneNumber": String,
+	"email": String,
+	"PESEL": Int16,
+	"address":{
+		"street": String,
+		"houseNumber": String,
+		"flatNumber": String,
+		"city": String,
+		"zipCode": String
+	},
+	"parent1":{
+		"name": String,
+		"lastName": String,
+		"phoneNumber": String,
+		"email": String
+	},
+	"parent2":{
+		"name": String,
+		"lastName": String,
+		"phoneNumber": String,
+		"email": String
+	}
+}
+
+Group{
+	"ID": UUID(),
+	"name": String,
+	"membersCount": Int16,
+	"dateOfFunding": Int16,
+	"description:" String
+}
