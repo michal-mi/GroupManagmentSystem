@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json({limit: "100mb", extended:true}));
 app.use(bodyParser.urlencoded({limit: "100mb", extended:true}));
 
-//app.use(cors());
+app.use(cors());
 
 
 const CONNECTION_URL = 'mongodb+srv://admin:admin@cluster0.fhmbr.mongodb.net/?retryWrites=true&w=majorityy';

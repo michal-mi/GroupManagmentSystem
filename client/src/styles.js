@@ -1,4 +1,4 @@
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@mui/styles';
 
 export default makeStyles(() => ({
     appBar: {
@@ -7,6 +7,6 @@ export default makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        aligment: ''
+        alignItems: 'center',
     }
 }))

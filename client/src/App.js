@@ -1,10 +1,12 @@
 import logo from './logo.svg';
-import {Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
+import {Container, AppBar, Typography, Grow, Grid} from '@mui/material';
 import Member from './components/showMember/showMember.js';
 import Create from './components/createMember/createMember.js';
 import './App.css';
+import useStyles from './styles'
 
 function App() {
+  const classes = useStyles();
   return (
     <div className="App">
       <Container maxWidth="lg">
