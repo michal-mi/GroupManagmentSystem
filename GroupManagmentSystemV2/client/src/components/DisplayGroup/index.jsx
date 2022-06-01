@@ -27,23 +27,15 @@ export default function ShowGroups(){
 return (
 <div className={styles.main_container}>
 <nav className={styles.navbar}>
-<h1>Spis grup</h1>
-<Link to="/">
-    <button
-        className={styles.exit_btn}>
-        Strona Główna
-    </button>
+<h1>Informacje o grupie</h1>
+<Link to="/members">
+<button
+    className={styles.exit_btn}>
+    Wróć
+</button>
 </Link>
 </nav>
 
-<div class={styles.center}>
-<Link to="/addGroup">
-<button type="button" 
- className={styles.green_btn}>
-     Stwórz grupę
-</button>
-</Link>
-</div>
 <div class={styles.center}>
 <table class={styles.styledtable}>
     <thead>
@@ -69,14 +61,6 @@ return (
         }
     </tbody>
  </table>
-</div>
-<div class={styles.right}>
-<Link to="/addGroup">
-<button type="button" 
- className={styles.green_btn_small}>
-     Stwórz grupę
-</button>
-</Link>
 </div>
 </div>
 )

@@ -6,6 +6,7 @@ import AddMember from "./components/AddMember"
 import AddGroup from "./components/AddGroup"
 import Groups from "./components/Groups"
 import Members from "./components/Members"
+import DisplayGroup from "./components/DisplayGroup"
 function App() {
 const user = localStorage.getItem("token")
 return (
@@ -18,6 +19,7 @@ return (
 <Route path="/addGroup" exact element={<AddGroup />} />
 <Route path="/groups" exact element={<Groups />} />
 <Route path="/members" exact element={<Members />} />
+<Route path="/displayGroup/:id" exact element={<DisplayGroup />} />
 </Routes>
 )
 }

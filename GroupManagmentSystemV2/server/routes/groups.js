@@ -23,4 +23,15 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.delete('/:id', async(req,res) => {
+    const id = req.params.id
+
+    try {
+        await Group.findByIdAndDelete(id).exec()
+        res.status(201).send({ message: "Usunięto grupę" })
+    }catch(error){
+        res.status(500).send({ message: "Wewnętrzny błąd serwera" })
+    }
+});
+
 module.exports = router
