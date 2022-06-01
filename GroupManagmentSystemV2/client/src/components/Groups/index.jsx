@@ -17,6 +17,12 @@ export default function ShowGroups(){
         })
     }
 
+    const displayGroup = (id) => {
+        axios.get(`http://localhost:8080/api/groups/${id}`).then(() => {
+            window.location.reload(false);
+        })
+    }
+
     useEffect(() => {
         axios.get("http://localhost:8080/api/groups").then((allGroups) => {
             setGroupList(allGroups.data)
@@ -51,7 +57,7 @@ return (
         <th>Nazwa</th>
         <th>Data utworzenia</th>
         <th>Opis</th>
-        <th>Usuwanie</th>
+        <th>Dostępne akcje</th>
         </tr>
     </thead>
     <tbody>
@@ -60,10 +66,18 @@ return (
         <td>{group.name}</td>
         <td>{group.dateOfCreation}</td>
         <td>{group.description}</td>
-        <td><button
+        <td>
+            <button
             className={styles.delete_btn} onClick={() => deleteGroup(group._id)}>
             Usuń
-        </button></td>
+            </button>
+            <Link to='/groups/${key}'>
+            <button
+            className={styles.details_btn} onClick={() => displayGroup(group._id)}>
+            Szczegóły
+            </button>
+            </Link>
+        </td>
         </tr>
         ))
         }

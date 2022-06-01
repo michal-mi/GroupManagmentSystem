@@ -148,3 +148,21 @@ padding-right: 40px;
 	color: white;
 	margin: 14px;
 }
+
+.details_btn {
+	border: none;
+	outline: none;
+	padding: 10px 0;
+	background-color: lightblue;
+	border-radius: 20px;
+	width: 130px;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.details_btn {
+	background-color: lightblue;
+	color: white;
+	margin: 10px;
+}

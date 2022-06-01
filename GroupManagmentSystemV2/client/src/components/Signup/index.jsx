@@ -35,11 +35,11 @@ return (
 <div className={styles.signup_container}>
 <div className={styles.signup_form_container}>
 <div className={styles.left}>
-<h1>Witaj z powrotem</h1>
+<h1>Masz konto?</h1>
 <Link to="/login">
 <button type="button" 
  className={styles.white_btn}>
-Sing in
+Zaloguj się
 </button>
 </Link>
 </div>

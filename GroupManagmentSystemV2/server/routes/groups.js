@@ -23,6 +23,15 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.get('/:id', async(req, res) => {
+    try{
+        const groups = await Group.find()
+        res.send(groups)
+    }catch(error){
+        res.status(500).send({ message: "Wewnętrzny błąd serwera" })
+    }
+});
+
 router.delete('/:id', async(req,res) => {
     const id = req.params.id
 
