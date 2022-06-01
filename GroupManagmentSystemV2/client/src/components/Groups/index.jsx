@@ -71,7 +71,7 @@ return (
             className={styles.delete_btn} onClick={() => deleteGroup(group._id)}>
             Usuń
             </button>
-            <Link to='/groups/${key}'>
+            <Link to={"/displayGroup/"+group._id}>
             <button
             className={styles.details_btn} onClick={() => displayGroup(group._id)}>
             Szczegóły
