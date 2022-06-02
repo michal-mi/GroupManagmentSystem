@@ -23,6 +23,12 @@ export default function ShowGroups(){
         })
     }
 
+    const editGroup = (id) => {
+        axios.get(`http://localhost:8080/api/groups/${id}`).then(() => {
+            window.location.reload(false);
+        })
+    }
+
     useEffect(() => {
         axios.get("http://localhost:8080/api/groups").then((allGroups) => {
             setGroupList(allGroups.data)
@@ -64,7 +70,7 @@ return (
         {groupsList.map((group, key) => (
         <tr class={styles.activerow} key={key}>
         <td>{group.name}</td>
-        <td>{group.dateOfCreation}</td>
+        <td>{group.dateOfCreation.slice(0,10)}</td>
         <td>{group.description}</td>
         <td>
             <button
@@ -77,6 +83,12 @@ return (
             Szczegóły
             </button>
             </Link>
+            <Link to={"/editGroup/"+group._id}>
+            <button
+            className={styles.edit_btn} onClick={() => editGroup(group._id)}>
+            Edytuj
+            </button>
+            </Link>     
         </td>
         </tr>
         ))

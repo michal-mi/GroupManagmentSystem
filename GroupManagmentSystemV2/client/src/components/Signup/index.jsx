@@ -87,7 +87,7 @@ className={styles.input}
  className={styles.error_msg}>{error}</div>}
 <button type="submit" 
  className={styles.green_btn}>
-Zaloguj się
+Zarejestruj się
 </button>
 </form>
 </div>

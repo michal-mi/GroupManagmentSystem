@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState, Redirect } from "react"
 import axios from "axios"
-import {Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styles from "./styles.module.css"
 
 const AddGroup = () => {
@@ -20,7 +20,7 @@ const AddGroup = () => {
         try {
             const url = "http://localhost:8080/api/groups"
             const { data: res } = await axios.post(url, data)
-            navigate("/")
+            navigate("/groups")
             console.log(res.message)
         } catch (error) {
             if (
@@ -33,17 +33,17 @@ const AddGroup = () => {
         }
     }
     return (
-    <div>
-        <nav className={styles.navbar}>
-            <h1>Tworzenie grupy</h1>
-            <Link to="/groups">
-                <button
-                    className={styles.exit_btn}>
-                    Anuluj
-                </button>
-            </Link>
-        </nav>
-        <div className={styles.center}><h2>Kreator grupy</h2></div>
+        <div>
+            <nav className={styles.navbar}>
+                <h1>Tworzenie grupy</h1>
+                <Link to="/groups">
+                    <button
+                        className={styles.exit_btn}>
+                        Anuluj
+                    </button>
+                </Link>
+            </nav>
+            <div className={styles.center}><h2>Kreator grupy</h2></div>
             <form className={styles.form_container} onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -54,15 +54,15 @@ const AddGroup = () => {
                     className={styles.input}
                 />
                 <p>
-                <div className={styles.special}>Data utworzenia:</div>
-                <input
-                    type="date"
-                    placeholder="Data utworzenia grupy"
-                    name="dateOfCreation"
-                    onChange={handleChange}
-                    value={data.dateOfCreation}
-                    className={styles.input1}
-                />
+                    <div className={styles.special}>Data utworzenia:</div>
+                    <input
+                        type="date"
+                        placeholder="Data utworzenia grupy"
+                        name="dateOfCreation"
+                        onChange={handleChange}
+                        value={data.dateOfCreation}
+                        className={styles.input1}
+                    />
                 </p>
                 <input
                     type="text"
@@ -75,13 +75,13 @@ const AddGroup = () => {
                 <div class={styles.center}>
                     {error && <div className={styles.error_msg}>{error}</div>}
                     <button
-                        type="submit" 
+                        type="submit"
                         className={styles.green_btn}>
                         Utwórz grupę
                     </button>
                 </div>
             </form>
-    </div>
+        </div>
     )
 }
 export default AddGroup

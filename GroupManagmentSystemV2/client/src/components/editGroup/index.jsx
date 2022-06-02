@@ -68,24 +68,45 @@ export default function ShowGroup() {
     }
 
     return (
-        <div className={styles.main_container}>
-            <nav className={styles.navbar}>
-                <h1>Szczegóły {returnGroupName()}</h1>
-                <Link to="/groups">
-                    <button
-                        className={styles.exit_btn}>
-                        Powrót
-                    </button>
-                </Link>
-            </nav>
-
-            <div className={styles.center}>
-                {returnGroupInfo()}
+        <div>
+        <div className={styles.center}><h2>Kreator grupy</h2></div>
+        <form className={styles.form_container} onSubmit={handleSubmit}>
+            <input
+                type="text"
+                placeholder="Nazwa grupy"
+                name="name"
+                onChange={handleChange}
+                value={data.name}
+                className={styles.input}
+            />
+            <p>
+                <div className={styles.special}>Data utworzenia:</div>
+                <input
+                    type="date"
+                    placeholder="Data utworzenia grupy"
+                    name="dateOfCreation"
+                    onChange={handleChange}
+                    value={data.dateOfCreation}
+                    className={styles.input1}
+                />
+            </p>
+            <input
+                type="text"
+                placeholder="Opis"
+                name="description"
+                onChange={handleChange}
+                value={data.description}
+                className={styles.input}
+            />
+            <div class={styles.center}>
+                {error && <div className={styles.error_msg}>{error}</div>}
+                <button
+                    type="submit"
+                    className={styles.green_btn}>
+                    Utwórz grupę
+                </button>
             </div>
-            <br></br>
-            <div className={styles.center}>
-                {returnGroupDelButton()}
-            </div>
+        </form>
         </div>
     )
 }
