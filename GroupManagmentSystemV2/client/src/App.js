@@ -7,7 +7,7 @@ import AddGroup from "./components/AddGroup"
 import Groups from "./components/Groups"
 import Members from "./components/Members"
 import DisplayGroup from "./components/DisplayGroup"
-import EditGroup from "./components/editGroup"
+import EditGroup from "./components/EditGroup"
 
 function App() {
 const user = localStorage.getItem("token")

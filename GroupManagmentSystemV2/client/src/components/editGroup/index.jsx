@@ -4,28 +4,59 @@ import axios from "axios";
 import {React, useEffect, useState} from "react";
 
 export default function ShowGroup() {
+
+    const [error, setError] = useState("")
+    const [data, setData] = useState({
+        name: "",
+        dateOfCreation: "",
+        description: ""
+    })
     const navigate = useNavigate()
     const [groupsList, setGroupList] = useState([])
     const id = window.location.href.slice(-24)
-    var groupName = ""
+    var groupName = returnGroupName()
+    console.log(groupName)
+    const [groupName1, setGroupName1] = useState({})
     var groupInfo = ""
     var groupDelButton = ""
 
+    function xd(){
+        setGroupName1(groupName1=>[...groupName1, groupName])
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const url = "http://localhost:8080/api/groups"
+            const { data: res } = await axios.post(url, data)
+            navigate("/groups")
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setError(error.response.data.message)
+            }
+        }
+    }
+
+    const handleChange = ({ currentTarget: input }) => {
+        setData({ ...data, [input.name]: input.value })
+    }
+
     function returnGroupName() {
         groupsList.map((group, key) => {
-            console.log(group._id)
-            console.log(id)
             if (group._id === id) {
                 groupName = group.name
             }
         })
+        //setGroupName1(groupName.target.value)
         return groupName
     }
 
     function returnGroupInfo() {
         groupsList.map((group, key) => {
-            console.log(group._id)
-            console.log(id)
             if (group._id === id) {
                 groupInfo = <div>
                     <h2><b>Nazwa grupy: </b>{group.name}</h2>
@@ -42,8 +73,6 @@ export default function ShowGroup() {
 
     function returnGroupDelButton() {
         groupsList.map((group, key) => {
-            console.log(group._id)
-            console.log(id)
             if (group._id === id) {
                 groupDelButton = <button
                     className={styles.delete_btn} onClick={() => deleteGroup(group._id)}>
@@ -57,6 +86,10 @@ export default function ShowGroup() {
     useEffect(() => {
         axios.get("http://localhost:8080/api/groups").then((allGroups) => {
             setGroupList(allGroups.data)
+            setGroupName1(groupName)
+            console.log(groupName)
+            //xd() pobierać dane z linku i dopiero zmodyfikowane zapisywać do bazy danych
+            console.log(groupName)
         })
     }, [])
 
@@ -74,9 +107,10 @@ export default function ShowGroup() {
             <input
                 type="text"
                 placeholder="Nazwa grupy"
-                name="name"
-                onChange={handleChange}
-                value={data.name}
+                //name="groupName1" how to display and modify const in textfield react
+                //onChange={(e)=>setGroupName1(e.target.value)}
+                onChange={groupName1}
+                value={groupName1}
                 className={styles.input}
             />
             <p>
@@ -103,10 +137,13 @@ export default function ShowGroup() {
                 <button
                     type="submit"
                     className={styles.green_btn}>
-                    Utwórz grupę
+                    Zapisz zmiany
                 </button>
             </div>
         </form>
+        <div className={styles.center}>
+                {returnGroupDelButton()}
+            </div>
         </div>
     )
 }
