@@ -63,7 +63,7 @@ export default function ShowMember() {
                                 <b> Adres email: </b>{member.email}
                             </td>
                             <td>
-                                <b> Pesel: </b>{member.PESEL}
+                                <b> Pesel: </b>{member.pesel}
                             </td>
                             <td>
                                 <b> Data dołączenia: </b>{member.dateOfJoining.slice(0, 10)}
@@ -145,7 +145,14 @@ export default function ShowMember() {
         membersList.map((member, key) => {
             if (member._id === id) {
                 memberDelButton = <button
-                    className={styles.delete_btn} onClick={() => deleteMember(member._id)}>
+                    className={styles.delete_btn} onClick={() => {
+                        const confirmBox = window.confirm(
+                            "Osoba zostanie bezpowrotnie usunięta. Kontynować?"
+                        )
+                        if (confirmBox === true) {
+                            deleteMember(member._id)
+                        }
+                    }}>
                     Usuń
                 </button>
             }
@@ -174,6 +181,12 @@ export default function ShowMember() {
                     <button
                         className={styles.exit_btn}>
                         Powrót
+                    </button>
+                </Link>
+                <Link to="/groups_members">
+                    <button
+                        className={styles.exit_btn}>
+                        Lista grupy-osoby
                     </button>
                 </Link>
             </nav>

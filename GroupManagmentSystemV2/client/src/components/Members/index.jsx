@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function ShowMembers() {
     const [membersList, setMembersList] = useState([])
+    const [groupsList, setGroupsList] = useState([])
 
     const deleteMember = (id) => {
         axios.delete(`http://localhost:8080/api/members/${id}`).then(() => {
@@ -18,7 +19,7 @@ export default function ShowMembers() {
         })
     }
 
-    const editMember= (id) => {
+    const editMember = (id) => {
         axios.get(`http://localhost:8080/api/members/${id}`).then(() => {
             window.location.reload(false);
         })
@@ -27,6 +28,9 @@ export default function ShowMembers() {
     useEffect(() => {
         axios.get("http://localhost:8080/api/members").then((allMembers) => {
             setMembersList(allMembers.data)
+        })
+        axios.get("http://localhost:8080/api/groups").then((allGroups) => {
+            setGroupsList(allGroups.data)
         })
     }, [])
 
@@ -50,28 +54,37 @@ export default function ShowMembers() {
                     </button>
                 </Link>
             </div>
-            <div class={styles.center}>
-                <table class={styles.styledtable}>
+            <div className={styles.center}>
+                <table className={styles.styledtable}>
                     <thead>
                         <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>Grupa</th>
-                            <th>Data urodzenia</th>
-                            <th>Stopień</th>
-                            <th>Usuwanie</th>
+                            <th className={styles.centertext}>Imię</th>
+                            <th className={styles.centertext}>Nazwisko</th>
+                            <th className={styles.centertext}>Grupa</th>
+                            <th className={styles.centertext}>Data urodzenia</th>
+                            <th className={styles.centertext}>Dostępne akcje</th>
                         </tr>
                     </thead>
                     <tbody>
                         {membersList.map((member, key) => (
                             <tr class={styles.activerow} key={key}>
-                                <td>{member.name}</td>
-                                <td>{member.lastName}</td>
-                                <td>{member.groupID}</td>
-                                <td>{member.dateOfBirth.slice(0, 10)}</td>
-                                <td>{member.function}</td>
-                                <td><button
-                                    className={styles.delete_btn} onClick={() => deleteMember(member._id)}>
+                                <td className={styles.centertext}>{member.name}</td>
+                                <td className={styles.centertext}>{member.lastName}</td>
+                                <td className={styles.centertext}> {groupsList.map((group, key) => (
+                                    group._id === member.groupID ?
+                                        <div>{group.name}</div> :
+                                        <div></div>
+                                ))}</td>
+                                <td className={styles.centertext}>{member.dateOfBirth.slice(0, 10)}</td>
+                                <td className={styles.centertext}><button
+                                    className={styles.delete_btn} onClick={() => {
+                                        const confirmBox = window.confirm(
+                                            "Osoba zostanie bezpowrotnie usunięta. Kontynować?"
+                                        )
+                                        if (confirmBox === true) {
+                                            deleteMember(member._id)
+                                        }
+                                    }}>
                                     Usuń
                                 </button>
                                     <Link to={"/displayMember/" + member._id}>

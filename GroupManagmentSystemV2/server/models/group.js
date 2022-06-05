@@ -2,9 +2,9 @@ const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken")
 const Joi = require("joi")
 const groupSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    dateOfCreation: {type: Date, required: true},
-    description: {type: String, required: false},
+    name: { type: String, required: true },
+    dateOfCreation: { type: Date, required: true },
+    description: { type: String, required: false },
 })
 
 groupSchema.methods.generateAuthToken = function () {
@@ -26,4 +26,4 @@ const validate = (data) => {
 }
 
 module.exports = { Group, validate }
-    
+

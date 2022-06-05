@@ -1,7 +1,8 @@
-import { useState, Redirect } from "react"
+import { useState } from "react"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import styles from "./styles.module.css"
+import Popout from 'react-popout'
 
 const AddGroup = () => {
     const [data, setData] = useState({
@@ -20,6 +21,7 @@ const AddGroup = () => {
         try {
             const url = "http://localhost:8080/api/groups"
             const { data: res } = await axios.post(url, data)
+            alert(res.message)
             navigate("/groups")
             console.log(res.message)
         } catch (error) {
@@ -29,6 +31,8 @@ const AddGroup = () => {
                 error.response.status <= 500
             ) {
                 setError(error.response.data.message)
+            } else {
+                    
             }
         }
     }
@@ -52,6 +56,7 @@ const AddGroup = () => {
                     onChange={handleChange}
                     value={data.name}
                     className={styles.input}
+                    required
                 />
                 <p>
                     <div className={styles.special}>Data utworzenia:</div>
@@ -62,6 +67,7 @@ const AddGroup = () => {
                         onChange={handleChange}
                         value={data.dateOfCreation}
                         className={styles.input1}
+                        required
                     />
                 </p>
                 <input

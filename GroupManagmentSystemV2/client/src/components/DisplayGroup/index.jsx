@@ -1,7 +1,7 @@
 import styles from "./styles.module.css"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
-import {React, useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 
 export default function ShowGroup() {
     const navigate = useNavigate()
@@ -46,7 +46,14 @@ export default function ShowGroup() {
             console.log(id)
             if (group._id === id) {
                 groupDelButton = <button
-                    className={styles.delete_btn} onClick={() => deleteGroup(group._id)}>
+                    className={styles.delete_btn} onClick={() => {
+                        const confirmBox = window.confirm(
+                            "Wszystkie powiązane z tą grupą osoby zostaną usunięte!!! Czy na pewno chcesz usunąć tą grupę?"
+                        )
+                        if (confirmBox === true) {
+                            deleteGroup(group._id)
+                        }
+                    }}>
                     Usuń
                 </button>
             }
@@ -75,6 +82,12 @@ export default function ShowGroup() {
                     <button
                         className={styles.exit_btn}>
                         Powrót
+                    </button>
+                </Link>
+                <Link to="/groups_members">
+                    <button
+                        className={styles.exit_btn}>
+                        Lista grupy-osoby
                     </button>
                 </Link>
             </nav>

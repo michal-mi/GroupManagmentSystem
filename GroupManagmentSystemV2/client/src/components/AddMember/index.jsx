@@ -14,7 +14,7 @@ const AddMember = () => {
         rank: "",
         phoneNumber: "",
         email: "",
-        PESEL: "",
+        pesel: "",
         dateOfJoining: "",
         ADstreet: "",
         ADhouseNumber: "",
@@ -43,6 +43,7 @@ const AddMember = () => {
         try {
             const url = "http://localhost:8080/api/members"
             const { data: res } = await axios.post(url, data)
+            alert(res.message)
             navigate("/members")
             console.log(res.message)
         } catch (error) {
@@ -56,13 +57,13 @@ const AddMember = () => {
         }
     }
 
-    function displayForm(){
-    if(groupsList.length === 0){
-        return <div><h1><b className={styles.center}>BRAK GRUP!!</b></h1><div className={styles.center}>Aby stworzyć osobę najpierw musisz stworzyć grupę!</div>
-        </div>
-    }
-    if (selectID !=undefined){
-      return  <form className={styles.form_container} onSubmit={handleSubmit}>
+    function displayForm() {
+        if (groupsList.length === 0) {
+            return <div><h1><b className={styles.center}>BRAK GRUP!!</b></h1><div className={styles.center}>Aby stworzyć osobę najpierw musisz stworzyć grupę!</div>
+            </div>
+        }
+        if (selectID !== undefined) {
+            return <form className={styles.form_container} onSubmit={handleSubmit}>
                 <table>
                     <tr>
                         <td>
@@ -146,7 +147,7 @@ const AddMember = () => {
                         </td>
                         <td>
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Adres email"
                                 name="email"
                                 onChange={handleChange}
@@ -157,10 +158,10 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="PESEL"
-                                name="PESEL"
+                                placeholder="Pesel"
+                                name="pesel"
                                 onChange={handleChange}
-                                value={data.PESEL}
+                                value={data.pesel}
                                 required
                                 className={styles.input}
                             />
@@ -289,7 +290,7 @@ const AddMember = () => {
                         <td></td>
                         <td>
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Adres email"
                                 name="P1email"
                                 onChange={handleChange}
@@ -341,7 +342,7 @@ const AddMember = () => {
                         <td></td>
                         <td>
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Adres email"
                                 name="P2email"
                                 onChange={handleChange}
@@ -365,7 +366,7 @@ const AddMember = () => {
                     </tr>
                 </table>
             </form>
-    }
+        }
     }
 
     useEffect(() => {
@@ -373,13 +374,12 @@ const AddMember = () => {
             setGroupList(allGroups.data)
         })
 
-        if(selectID != undefined){
-        if(selectID.length <= 24){
-        data.groupID = selectID
+        if (selectID !== undefined) {
+            if (selectID.length <= 24) {
+                data.groupID = selectID
+            }
+
         }
-        
-    }
-    console.log(data.groupID)
     })
 
     return (

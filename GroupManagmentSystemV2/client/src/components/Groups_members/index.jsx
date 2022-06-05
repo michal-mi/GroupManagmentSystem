@@ -100,7 +100,7 @@ export default function ShowGroups() {
                                 <th>
                                     <Link to={"/editGroup/" + group._id}>
                                         <button
-                                            className={styles.edit_btn} onClick={() => editGroup(group._id) }>
+                                            className={styles.edit_btn} onClick={() => editGroup(group._id)}>
                                             Edytuj
                                         </button>
                                     </Link>
@@ -116,7 +116,7 @@ export default function ShowGroups() {
                                             <button
                                                 className={styles.delete_btn} onClick={() => {
                                                     const confirmBox = window.confirm(
-                                                        "Ta osoba zostanie usunięta! Czy na pewno chcesz kontynować?"
+                                                        "Osoba zostanie bezpowrotnie usunięta. Kontynować?"
                                                     )
                                                     if (confirmBox === true) {
                                                         deleteMember(member._id)

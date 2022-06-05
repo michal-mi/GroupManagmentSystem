@@ -33,7 +33,9 @@ export default function ShowGroup() {
         try {
             const url = `http://localhost:8080/api/groups/${id}`
             const { data: res } = await axios.post(url, data)
+            alert(res.message)
             navigate("/groups")
+            console.log(res.message)
         } catch (error) {
             if (
                 error.response &&
@@ -79,8 +81,15 @@ export default function ShowGroup() {
         groupsList.map((group, key) => {
             if (group._id === id) {
                 groupDelButton = <button
-                    className={styles.delete_btn} onClick={() => deleteGroup(group._id)}>
-                    Usuń grupę
+                    className={styles.delete_btn} onClick={() => {
+                        const confirmBox = window.confirm(
+                            "Wszystkie powiązane z tą grupą osoby zostaną usunięte!!! Czy na pewno chcesz usunąć tą grupę?"
+                        )
+                        if (confirmBox === true) {
+                            deleteGroup(group._id)
+                        }
+                    }}>
+                    Usuń
                 </button>
             }
         })
@@ -111,11 +120,17 @@ export default function ShowGroup() {
                         Powrót
                     </button>
                 </Link>
+                <Link to="/groups_members">
+                    <button
+                        className={styles.exit_btn}>
+                        Lista grupy-osoby
+                    </button>
+                </Link>
             </nav>
 
             <div className={styles.center}>
                 <button className={styles.start_edit_btn} onClick={() => setEdition()}>
-                    Potwierdź kontynuowanie edytowania!
+                    Kilknij by edytować dotychasowe dane
                 </button>
             </div>
 
@@ -129,6 +144,7 @@ export default function ShowGroup() {
                     onChange={(e) => setGroupName(e.target.value)}
                     value={groupName}
                     className={styles.input}
+                    required
                 />
                 <p>
                     <div className={styles.special}>Data utworzenia:</div>
@@ -139,6 +155,7 @@ export default function ShowGroup() {
                         onChange={(e) => setGroupDate(e.target.value)}
                         value={groupDate}
                         className={styles.input1}
+                        required
                     />
                 </p>
                 <input

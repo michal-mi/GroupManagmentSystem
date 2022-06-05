@@ -18,7 +18,7 @@ export default function ShowMember() {
         rank: "",
         phoneNumber: "",
         email: "",
-        PESEL: "",
+        pesel: "",
         dateOfJoining: "",
         ADstreet: "",
         ADhouseNumber: "",
@@ -45,7 +45,7 @@ export default function ShowMember() {
     const [memberRank, setMemberRank] = useState()
     const [memberPhoneNumber, setMemberPhoneNumber] = useState()
     const [memberEmail, setMemberEmail] = useState()
-    const [memberPESEL, setMemberPESEL] = useState()
+    const [memberPesel, setMemberPesel] = useState()
     const [memberDateOfJoining, setMemberDateOfJoining] = useState()
     const [memberADstreet, setMemberADstreet] = useState()
     const [memberADhouseNumber, setMemberADhouseNumber] = useState()
@@ -72,7 +72,7 @@ export default function ShowMember() {
         setMemberRank(returnMemberRank())
         setMemberPhoneNumber(returnMemberPhoneNumber())
         setMemberEmail(returnMemberEmail())
-        setMemberPESEL(returnMemberPESEL())
+        setMemberPesel(returnMemberPesel())
         setMemberDateOfJoining(returnMemberDateOfJoining().slice(0, 10))
         setMemberADstreet(returnMemberADstreet())
         setMemberADhouseNumber(returnMemberADhouseNumber())
@@ -101,7 +101,7 @@ export default function ShowMember() {
         data.rank = memberRank
         data.phoneNumber = memberPhoneNumber
         data.email = memberEmail
-        data.PESEL = memberPESEL
+        data.pesel = memberPesel
         data.dateOfJoining = memberDateOfJoining
         data.ADstreet = memberADstreet
         data.ADhouseNumber = memberADhouseNumber
@@ -116,10 +116,13 @@ export default function ShowMember() {
         data.P2lastName = memberP2lastName
         data.P2phoneNumber = memberP2phoneNumber
         data.P2email = memberP2email
+        console.log(data)
         try {
             const url = `http://localhost:8080/api/members/${id}`
             const { data: res } = await axios.post(url, data)
+            alert(res.message)
             navigate("/members")
+            console.log(res.message)
         } catch (error) {
             if (
                 error.response &&
@@ -203,10 +206,10 @@ export default function ShowMember() {
         return temp
     }
 
-    function returnMemberPESEL() {
+    function returnMemberPesel() {
         var temp
         membersList.map((member, key) => {
-            if (member._id === id) { temp = member.PESEL }
+            if (member._id === id) { temp = member.pesel }
         })
         return temp
     }
@@ -327,7 +330,14 @@ export default function ShowMember() {
         membersList.map((member, key) => {
             if (member._id === id) {
                 memberDelButton = <button
-                    className={styles.delete_btn} onClick={() => deleteMember(member._id)}>
+                    className={styles.delete_btn} onClick={() => {
+                        const confirmBox = window.confirm(
+                            "Osoba zostanie bezpowrotnie usunięta. Kontynować?"
+                        )
+                        if (confirmBox === true) {
+                            deleteMember(member._id)
+                        }
+                    }}>
                     Usuń członka
                 </button>
             }
@@ -363,13 +373,19 @@ export default function ShowMember() {
                         Powrót
                     </button>
                 </Link>
+                <Link to="/groups_members">
+                    <button
+                        className={styles.exit_btn}>
+                        Lista grupy-osoby
+                    </button>
+                </Link>
             </nav>
 
             <div className={styles.center}><h1>Edytor członka</h1></div>
 
             <div className={styles.center}>
                 <button className={styles.start_edit_btn} onClick={() => setEdition()}>
-                    Potwierdź kontynuowanie zmiany danych!
+                    Kilknij by edytować dotychasowe dane
                 </button>
             </div>
 
@@ -396,6 +412,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberName(e.target.value)}
                     value={memberName}
                     className={styles.input}
+                    required
                 />
                 <input
                     type="text"
@@ -412,6 +429,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberLastName(e.target.value)}
                     value={memberLastName}
                     className={styles.input}
+                    required
                 />
                 <p>
                     <div className={styles.special}>Data urodzenia:</div>
@@ -422,6 +440,7 @@ export default function ShowMember() {
                         onChange={(e) => setMemberDateOfBirth(e.target.value)}
                         value={memberDateOfBirth}
                         className={styles.input1}
+                        required
                     />
                 </p>
                 <input
@@ -439,6 +458,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberRank(e.target.value)}
                     value={memberRank}
                     className={styles.input}
+                    required
                 />
                 <input
                     type="text"
@@ -449,7 +469,7 @@ export default function ShowMember() {
                     className={styles.input}
                 />
                 <input
-                    type="text"
+                    type="email"
                     placeholder="Email"
                     name="email"
                     onChange={(e) => setMemberEmail(e.target.value)}
@@ -459,10 +479,11 @@ export default function ShowMember() {
                 <input
                     type="text"
                     placeholder="Pesel"
-                    name="PESEL"
-                    onChange={(e) => setMemberPESEL(e.target.value)}
-                    value={memberPESEL}
+                    name="pesel"
+                    onChange={(e) => setMemberPesel(e.target.value)}
+                    value={memberPesel}
                     className={styles.input}
+                    required
                 />
                 <p>
                     <div className={styles.special}>Data dołączenia:</div>
@@ -473,6 +494,7 @@ export default function ShowMember() {
                         onChange={(e) => setMemberDateOfJoining(e.target.value)}
                         value={memberDateOfJoining}
                         className={styles.input1}
+                        required
                     />
                 </p>
                 <div className={styles.center}><h2>Dane adresowe</h2></div>
@@ -483,6 +505,16 @@ export default function ShowMember() {
                     onChange={(e) => setMemberADstreet(e.target.value)}
                     value={memberADstreet}
                     className={styles.input}
+                    required
+                />
+                 <input
+                    type="text"
+                    placeholder="Numer budynku"
+                    name="houseNumber"
+                    onChange={(e) => setMemberADhouseNumber(e.target.value)}
+                    value={memberADhouseNumber}
+                    className={styles.input}
+                    required
                 />
                 <input
                     type="text"
@@ -499,6 +531,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberADcity(e.target.value)}
                     value={memberADcity}
                     className={styles.input}
+                    required
                 />
                 <input
                     type="text"
@@ -507,6 +540,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberADzipCode(e.target.value)}
                     value={memberADzipCode}
                     className={styles.input}
+                    required
                 />
                 <div className={styles.center}><h2>Dane pierwszego rodzica</h2></div>
                 <input
@@ -516,6 +550,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberP1name(e.target.value)}
                     value={memberP1name}
                     className={styles.input}
+                    required
                 />
                 <input
                     type="text"
@@ -524,6 +559,7 @@ export default function ShowMember() {
                     onChange={(e) => setMemberP1lastName(e.target.value)}
                     value={memberP1lastName}
                     className={styles.input}
+                    required
                 />
                 <input
                     type="text"
@@ -532,14 +568,16 @@ export default function ShowMember() {
                     onChange={(e) => setMemberP1phoneNumber(e.target.value)}
                     value={memberP1phoneNumber}
                     className={styles.input}
+                    required
                 />
                 <input
-                    type="text"
+                    type="email"
                     placeholder="Email rodzica nr. 1"
                     name="parent1Email"
                     onChange={(e) => setMemberP1email(e.target.value)}
                     value={memberP1email}
                     className={styles.input}
+                    required
                 />
                 <div className={styles.center}><h2>Dane drugiego rodzica</h2></div>
                 <input
@@ -567,7 +605,7 @@ export default function ShowMember() {
                     className={styles.input}
                 />
                 <input
-                    type="text"
+                    type="email"
                     placeholder="Email rodzica nr. 2"
                     name="parent2Email"
                     onChange={(e) => setMemberP2email(e.target.value)}
