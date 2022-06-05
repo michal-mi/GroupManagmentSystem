@@ -92,44 +92,46 @@ export default function ShowMember() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        data.groupID = memberGroupID
-        data.name = memberName
-        data.secondName = memberSecondName
-        data.lastName = memberLastName
-        data.dateOfBirth = memberDateOfBirth
-        data.function = memberFunction
-        data.rank = memberRank
-        data.phoneNumber = memberPhoneNumber
-        data.email = memberEmail
-        data.pesel = memberPesel
-        data.dateOfJoining = memberDateOfJoining
-        data.ADstreet = memberADstreet
-        data.ADhouseNumber = memberADhouseNumber
-        data.ADflatNumber = memberADflatNumber
-        data.ADcity = memberADcity
-        data.ADzipCode = memberADzipCode
-        data.P1name = memberP1name
-        data.P1lastName = memberP1lastName
-        data.P1phoneNumber = memberP1phoneNumber
-        data.P1email = memberP1email
-        data.P2name = memberP2name
-        data.P2lastName = memberP2lastName
-        data.P2phoneNumber = memberP2phoneNumber
-        data.P2email = memberP2email
-        console.log(data)
-        try {
-            const url = `http://localhost:8080/api/members/${id}`
-            const { data: res } = await axios.post(url, data)
-            alert(res.message)
-            navigate("/members")
-            console.log(res.message)
-        } catch (error) {
-            if (
-                error.response &&
-                error.response.status >= 400 &&
-                error.response.status <= 500
-            ) {
-                setError(error.response.data.message)
+        if (validateUsingRegex() === true) {
+            data.groupID = memberGroupID
+            data.name = memberName
+            data.secondName = memberSecondName
+            data.lastName = memberLastName
+            data.dateOfBirth = memberDateOfBirth
+            data.function = memberFunction
+            data.rank = memberRank
+            data.phoneNumber = memberPhoneNumber
+            data.email = memberEmail
+            data.pesel = memberPesel
+            data.dateOfJoining = memberDateOfJoining
+            data.ADstreet = memberADstreet
+            data.ADhouseNumber = memberADhouseNumber
+            data.ADflatNumber = memberADflatNumber
+            data.ADcity = memberADcity
+            data.ADzipCode = memberADzipCode
+            data.P1name = memberP1name
+            data.P1lastName = memberP1lastName
+            data.P1phoneNumber = memberP1phoneNumber
+            data.P1email = memberP1email
+            data.P2name = memberP2name
+            data.P2lastName = memberP2lastName
+            data.P2phoneNumber = memberP2phoneNumber
+            data.P2email = memberP2email
+            console.log(data)
+            try {
+                const url = `http://localhost:8080/api/members/${id}`
+                const { data: res } = await axios.post(url, data)
+                alert(res.message)
+                navigate("/members")
+                console.log(res.message)
+            } catch (error) {
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                    setError(error.response.data.message)
+                }
             }
         }
     }
@@ -362,6 +364,45 @@ export default function ShowMember() {
         })
     }
 
+    function validateUsingRegex() {
+        let regexName = new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+        let regexRank = new RegExp("^[^,;:.!?…]+$")
+        let regexPhoneNumber = new RegExp("(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]‌​)\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)([2-9]1[02-9]‌​|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})")
+        let regexPesel = new RegExp(/^[0-9]{11}$/)
+        let regexPostalCode = new RegExp('^[0-9]{2}-[0-9]{3}$')
+        if (regexName.test(data.name) === true) {
+            if (regexName.test(data.lastName) === true) {
+                if (regexRank.test(data.rank) === true) {
+                    if (regexPhoneNumber.test(data.P1phoneNumber) === true) {
+                        if (regexPesel.test(data.pesel) === true) {
+                            if (regexPostalCode.test(data.ADzipCode) === true) {
+                                return true
+                            } else {
+                                alert("Nie poprawny kod pocztowy")
+                                return false
+                            }
+                        } else {
+                            alert("Nie poprawny numer PESEL")
+                            return false
+                        }
+                    } else {
+                        alert("Nie poprawny numer telefonu rodzica")
+                        return false
+                    }
+                } else {
+                    alert("Nie poprawny stopień")
+                    return false
+                }
+            } else {
+                alert("Nie poprawne nazwisko")
+                return false
+            }
+        } else {
+            alert("Nie poprawne imię")
+            return false
+        }
+    }
+
     return (
         <div className={styles.main_container}>
 
@@ -507,7 +548,7 @@ export default function ShowMember() {
                     className={styles.input}
                     required
                 />
-                 <input
+                <input
                     type="text"
                     placeholder="Numer budynku (wymagane)"
                     name="houseNumber"
