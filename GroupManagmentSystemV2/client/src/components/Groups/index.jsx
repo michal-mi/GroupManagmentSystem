@@ -74,7 +74,14 @@ return (
         <td>{group.description}</td>
         <td>
             <button
-            className={styles.delete_btn} onClick={() => deleteGroup(group._id)}>
+            className={styles.delete_btn} onClick={() =>{
+                const confirmBox = window.confirm(
+                    "Wszystkie powiązane z tą grupą osoby zostaną usunięte!!! Czy na pewno chcesz usunąć tą grupę?"
+                  )
+                  if (confirmBox === true) {
+                    deleteGroup(group._id)}
+                  }}
+            >
             Usuń
             </button>
             <Link to={"/displayGroup/"+group._id}>

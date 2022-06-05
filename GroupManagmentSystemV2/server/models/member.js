@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken")
 const Joi = require("joi")
 const memberSchema = new mongoose.Schema({
-    groupID: {type: String, required: false},
+    groupID: {type: String, required: true},
 	name: {type: String, required: true},
 	secondName: {type: String, required: false},
 	lastName: {type: String, required: true},
@@ -39,7 +39,7 @@ const Member = mongoose.model("Member", memberSchema)
 
 const validate = (data) => {
     const schema = Joi.object({
-        groupID: Joi.string().optional().allow('').label("Group ID"),
+        groupID: Joi.string().required().label("Group ID"),
         name: Joi.string().required().label("First Name"),
         secondName: Joi.string().label("Second Name"),
         lastName: Joi.string().required().label("Last Name"),

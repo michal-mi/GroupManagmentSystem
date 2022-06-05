@@ -31,8 +31,7 @@ export default function ShowGroup() {
         data.dateOfCreation = groupDate
         data.description = groupDescription
         try {
-            axios.delete(`http://localhost:8080/api/groups/${id}`)
-            const url = `http://localhost:8080/api/groups/`
+            const url = `http://localhost:8080/api/groups/${id}`
             const { data: res } = await axios.post(url, data)
             navigate("/groups")
         } catch (error) {
