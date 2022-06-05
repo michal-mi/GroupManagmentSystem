@@ -139,7 +139,7 @@ export default function ShowGroup() {
             <form className={styles.form_container} onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    placeholder="Nazwa grupy"
+                    placeholder="Nazwa grupy (wymagane)"
                     name="groupName"
                     onChange={(e) => setGroupName(e.target.value)}
                     value={groupName}
@@ -147,7 +147,7 @@ export default function ShowGroup() {
                     required
                 />
                 <p>
-                    <div className={styles.special}>Data utworzenia:</div>
+                    <div className={styles.special}>Data utworzenia (wymagane):</div>
                     <input
                         type="date"
                         placeholder="Data utworzenia grupy"

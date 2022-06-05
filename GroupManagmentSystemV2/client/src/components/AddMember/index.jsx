@@ -38,21 +38,62 @@ const AddMember = () => {
         setData({ ...data, [input.name]: input.value })
     }
 
+    function validateUsingRegex(){
+        let regexName = new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+        let regexRank = new RegExp("^[^,;:.!?…]+$")
+        let regexPhoneNumber = new RegExp("(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]‌​)\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)([2-9]1[02-9]‌​|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})")
+        let regexPesel = new RegExp(/^[0-9]{11}$/)
+        let regexPostalCode = new RegExp('^[0-9]{2}-[0-9]{3}$')
+        if(regexName.test(data.name) === true){
+            if(regexName.test(data.lastName) === true){
+                if(regexRank.test(data.rank) === true){
+                    if(regexPhoneNumber.test(data.P1phoneNumber) === true){
+                        if(regexPesel.test(data.pesel) === true){
+                            if(regexPostalCode.test(data.ADzipCode) === true){
+                                return true
+                            } else {
+                                alert("Nie poprawny kod pocztowy")
+                                return false
+                            }
+                        } else {
+                            alert("Nie poprawny numer PESEL")
+                            return false
+                        }
+                    } else {
+                        alert("Nie poprawny numer telefonu rodzica")
+                        return false
+                    }
+                } else {
+                    alert("Nie poprawny stopień")
+                    return false
+                }
+            } else {
+                alert("Nie poprawne nazwisko")
+                return false
+            }
+        } else {
+            alert("Nie poprawne imię")
+            return false
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const url = "http://localhost:8080/api/members"
-            const { data: res } = await axios.post(url, data)
-            alert(res.message)
-            navigate("/members")
-            console.log(res.message)
-        } catch (error) {
-            if (
-                error.response &&
-                error.response.status >= 400 &&
-                error.response.status <= 500
-            ) {
-                setError(error.response.data.message)
+        if (validateUsingRegex() === true) {
+            try {
+                const url = "http://localhost:8080/api/members"
+                const { data: res } = await axios.post(url, data)
+                alert(res.message)
+                navigate("/members")
+                console.log(res.message)
+            } catch (error) {
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                    setError(error.response.data.message)
+                }
             }
         }
     }
@@ -69,7 +110,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Imię"
+                                placeholder="Imię (wymagane)"
                                 name="name"
                                 onChange={handleChange}
                                 value={data.name}
@@ -90,7 +131,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Nazwisko"
+                                placeholder="Nazwisko  (wymagane)"
                                 name="lastName"
                                 onChange={handleChange}
                                 value={data.lastName}
@@ -101,7 +142,7 @@ const AddMember = () => {
                     </tr>
                     <tr>
                         <td>
-                            <div className={styles.special}>Data urodzenia:</div>
+                            <div className={styles.special}>Data urodzenia (wymagane):</div>
                             <input
                                 type="date"
                                 placeholder="Data urodzenia"
@@ -125,7 +166,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Stopień"
+                                placeholder="Stopień (wymagane)"
                                 name="rank"
                                 onChange={handleChange}
                                 value={data.rank}
@@ -138,7 +179,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Numer telefonu"
+                                placeholder="Numer telefonu (z kierunkowym)"
                                 name="phoneNumber"
                                 onChange={handleChange}
                                 value={data.phoneNumber}
@@ -158,7 +199,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Pesel"
+                                placeholder="Pesel (wymagane)"
                                 name="pesel"
                                 onChange={handleChange}
                                 value={data.pesel}
@@ -170,7 +211,7 @@ const AddMember = () => {
                     <tr>
                         <td></td>
                         <td>
-                            <div className={styles.special}>Data dołączenia: </div>
+                            <div className={styles.special}>Data dołączenia (wymagane): </div>
                             <input
                                 type="date"
                                 placeholder="Data dołączenia"
@@ -191,7 +232,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Ulica"
+                                placeholder="Ulica (wymagane)"
                                 name="ADstreet"
                                 onChange={handleChange}
                                 value={data.ADstreet}
@@ -202,7 +243,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Numer domu"
+                                placeholder="Numer domu (wymagane)"
                                 name="ADhouseNumber"
                                 onChange={handleChange}
                                 value={data.ADhouseNumber}
@@ -225,7 +266,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Miasto"
+                                placeholder="Miasto (wymagane)"
                                 name="ADcity"
                                 onChange={handleChange}
                                 value={data.ADcity}
@@ -236,7 +277,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Kod pocztowy"
+                                placeholder="Kod pocztowy (wymagane)"
                                 name="ADzipCode"
                                 onChange={handleChange}
                                 value={data.ADzipCode}
@@ -255,7 +296,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Imię"
+                                placeholder="Imię (wymagane)"
                                 name="P1name"
                                 onChange={handleChange}
                                 value={data.P1name}
@@ -266,7 +307,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Nazwisko"
+                                placeholder="Nazwisko (wymagane)"
                                 name="P1lastName"
                                 onChange={handleChange}
                                 value={data.P1lastName}
@@ -275,9 +316,9 @@ const AddMember = () => {
                             />
                         </td>
                         <td>
-                            <input
+                            <input  
                                 type="text"
-                                placeholder="Numer telefonu"
+                                placeholder="Numer telefonu (wymagane)(z kierunkowym)"
                                 name="P1phoneNumber"
                                 onChange={handleChange}
                                 value={data.P1phoneNumber}
@@ -291,7 +332,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="email"
-                                placeholder="Adres email"
+                                placeholder="Adres email (wymagane)"
                                 name="P1email"
                                 onChange={handleChange}
                                 value={data.P1email}
@@ -330,7 +371,7 @@ const AddMember = () => {
                         <td>
                             <input
                                 type="text"
-                                placeholder="Numer telefonu"
+                                placeholder="Numer telefonu (z kierunkowym)"
                                 name="P2phoneNumber"
                                 onChange={handleChange}
                                 value={data.P2phoneNumber}

@@ -407,7 +407,7 @@ export default function ShowMember() {
 
                 <input
                     type="text"
-                    placeholder="Imię"
+                    placeholder="Imię (wymagane)"
                     name="name"
                     onChange={(e) => setMemberName(e.target.value)}
                     value={memberName}
@@ -424,7 +424,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Nazwisko"
+                    placeholder="Nazwisko (wymagane)"
                     name="description"
                     onChange={(e) => setMemberLastName(e.target.value)}
                     value={memberLastName}
@@ -432,7 +432,7 @@ export default function ShowMember() {
                     required
                 />
                 <p>
-                    <div className={styles.special}>Data urodzenia:</div>
+                    <div className={styles.special}>Data urodzenia (wymagane):</div>
                     <input
                         type="date"
                         placeholder="Data urodzenia"
@@ -453,7 +453,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Stopień"
+                    placeholder="Stopień (wymagane)"
                     name="rank"
                     onChange={(e) => setMemberRank(e.target.value)}
                     value={memberRank}
@@ -462,7 +462,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Telefon"
+                    placeholder="Telefon (z kierunkowym)"
                     name="phoneNumber"
                     onChange={(e) => setMemberPhoneNumber(e.target.value)}
                     value={memberPhoneNumber}
@@ -478,7 +478,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Pesel"
+                    placeholder="Pesel (wymagane)"
                     name="pesel"
                     onChange={(e) => setMemberPesel(e.target.value)}
                     value={memberPesel}
@@ -486,7 +486,7 @@ export default function ShowMember() {
                     required
                 />
                 <p>
-                    <div className={styles.special}>Data dołączenia:</div>
+                    <div className={styles.special}>Data dołączenia (wymagane):</div>
                     <input
                         type="date"
                         placeholder="Data dołączenia"
@@ -500,7 +500,7 @@ export default function ShowMember() {
                 <div className={styles.center}><h2>Dane adresowe</h2></div>
                 <input
                     type="text"
-                    placeholder="Ulica"
+                    placeholder="Ulica (wymagane)"
                     name="street"
                     onChange={(e) => setMemberADstreet(e.target.value)}
                     value={memberADstreet}
@@ -509,7 +509,7 @@ export default function ShowMember() {
                 />
                  <input
                     type="text"
-                    placeholder="Numer budynku"
+                    placeholder="Numer budynku (wymagane)"
                     name="houseNumber"
                     onChange={(e) => setMemberADhouseNumber(e.target.value)}
                     value={memberADhouseNumber}
@@ -526,7 +526,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Miasto"
+                    placeholder="Miasto (wymagane)"
                     name="city"
                     onChange={(e) => setMemberADcity(e.target.value)}
                     value={memberADcity}
@@ -535,7 +535,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Kod pocztowy"
+                    placeholder="Kod pocztowy (wymagane)"
                     name="zipCode"
                     onChange={(e) => setMemberADzipCode(e.target.value)}
                     value={memberADzipCode}
@@ -545,7 +545,7 @@ export default function ShowMember() {
                 <div className={styles.center}><h2>Dane pierwszego rodzica</h2></div>
                 <input
                     type="text"
-                    placeholder="Imię rodzica nr.1"
+                    placeholder="Imię rodzica nr.1 (wymagane)"
                     name="parent1Name"
                     onChange={(e) => setMemberP1name(e.target.value)}
                     value={memberP1name}
@@ -554,7 +554,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Nazwisko rodzica nr. 1"
+                    placeholder="Nazwisko rodzica nr. 1 (wymagane)"
                     name="parent1LastName"
                     onChange={(e) => setMemberP1lastName(e.target.value)}
                     value={memberP1lastName}
@@ -563,7 +563,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Telefon rodzica nr. 1"
+                    placeholder="Telefon rodzica nr. 1 (wymagane)(z kierunkowym)"
                     name="parent1PhoneNumber"
                     onChange={(e) => setMemberP1phoneNumber(e.target.value)}
                     value={memberP1phoneNumber}
@@ -572,7 +572,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="email"
-                    placeholder="Email rodzica nr. 1"
+                    placeholder="Email rodzica nr. 1 (wymagane)"
                     name="parent1Email"
                     onChange={(e) => setMemberP1email(e.target.value)}
                     value={memberP1email}
@@ -598,7 +598,7 @@ export default function ShowMember() {
                 />
                 <input
                     type="text"
-                    placeholder="Telefon rodzica nr. 2"
+                    placeholder="Telefon rodzica nr. 2 (z kierunkowym)"
                     name="parent2PhoneNumber"
                     onChange={(e) => setMemberP2phoneNumber(e.target.value)}
                     value={memberP2phoneNumber}

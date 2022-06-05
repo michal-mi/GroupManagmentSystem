@@ -18,12 +18,17 @@ const AddGroup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        let regex = new RegExp(/^.{5,}$/)
         try {
-            const url = "http://localhost:8080/api/groups"
-            const { data: res } = await axios.post(url, data)
-            alert(res.message)
-            navigate("/groups")
-            console.log(res.message)
+            if (regex.test(data.name)) {
+                const url = "http://localhost:8080/api/groups"
+                const { data: res } = await axios.post(url, data)
+                alert(res.message)
+                navigate("/groups")
+                console.log(res.message)
+            } else {
+                alert("Nie poprawne dane! Nazwa grupy musi mieć minimum 5 znaków")
+            }
         } catch (error) {
             if (
                 error.response &&
@@ -31,8 +36,6 @@ const AddGroup = () => {
                 error.response.status <= 500
             ) {
                 setError(error.response.data.message)
-            } else {
-                    
             }
         }
     }
@@ -51,7 +54,7 @@ const AddGroup = () => {
             <form className={styles.form_container} onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    placeholder="Nazwa grupy"
+                    placeholder="Nazwa grupy (wymagane)"
                     name="name"
                     onChange={handleChange}
                     value={data.name}
@@ -59,7 +62,7 @@ const AddGroup = () => {
                     required
                 />
                 <p>
-                    <div className={styles.special}>Data utworzenia:</div>
+                    <div className={styles.special}>Data utworzenia (wymagane):</div>
                     <input
                         type="date"
                         placeholder="Data utworzenia grupy"
